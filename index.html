@@ -54,7 +54,7 @@
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.2/dist/index.iife.min.js"></script>
 </head>
 <body>
     <div class="slideshow"></div>
@@ -114,7 +114,8 @@
         }, 5000); // Change image every 5 seconds
 
         // Fireworks effect
-        const fireworks = new Fireworks(document.querySelector('.fireworks'), {
+        const container = document.querySelector('.fireworks');
+        const fireworks = new Fireworks.default(container, {
             speed: 3,
             acceleration: 1.05,
             friction: 0.97,
