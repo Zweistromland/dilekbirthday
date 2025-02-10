@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2/dist/index.umd.min.js"></script>
+</head>
+<body>
+    <div class="slideshow"></div>
+
+    <canvas class="fireworks"></canvas>
+
+    <div class="message">
+        Happy Birthday<br>I love you so much!
+    </div>
+
+    <script>
+        // Add your image URLs here
+        const images = [
+            "your-image1.jpg",
+            "your-image2.jpg",
+            "your-image3.jpg",
+            "your-image4.jpg",
+            "your-image5.jpg"
+        ];
+
+        // Get the slideshow container
+        const slideshow = document.querySelector('.slideshow');
+
+        // Dynamically create image elements
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            if (index === 0) img.classList.add('active'); // First image active
+            slideshow.appendChild(img);
+        });
+
+        // Slideshow functionality
+        let currentIndex = 0;
+        setInterval(() => {
+            const imgs = document.querySelectorAll('.slideshow img');
+            imgs[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % imgs.length; // Loop back to the first image
+            imgs[currentIndex].classList.add('active');
+        }, 5000); // Change image every 5 seconds
+
+        // Fireworks effect
+        const fireworks = new Fireworks(document.querySelector('.fireworks'), {
+            speed: 3,
+            acceleration: 1.05,
+            friction: 0.97,
+            gravity: 1.5,
+            particles: 100,
+            explosion: 6,
+        });
+        fireworks.start();
+    </script>
+</body>
+</html>
