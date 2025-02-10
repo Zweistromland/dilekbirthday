@@ -89,8 +89,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Check if the fireworks script loaded properly
             const fireworksScript = document.querySelector('script[src*="fireworks-js"]');
             if (fireworksScript) {
+                console.log("Fireworks script loaded!");
+
                 fireworksScript.onload = () => {
                     const container = document.querySelector('.fireworks');
                     const fireworks = new Fireworks(container, {
@@ -104,26 +107,34 @@
                     fireworks.start();
 
                     const images = [
-                        "img/20240220_193556.jpg", "img/20240501_121918.jpg", "img/20240801_162500.jpg", "img/20240804_210949.jpg",
-                        "img/20240804_210955.jpg", "img/20240817_113340.jpg", "img/20240817_223834.jpg", "img/20240818_175900.jpg",
-                        "img/20241018_130133.jpg", "img/20241117_143657.jpg", "img/20241127_220631.jpg",
-                        "img/2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
-                        "img/20250112_194140.jpg", "img/20250120_230316.jpg", "img/IMG-20240223-WA0004.jpg",
-                        "img/IMG-20240228-WA0009.jpg", "img/IMG-20240228-WA0010.jpg", "img/IMG-20240313-WA0014.jpg",
-                        "img/IMG-20240313-WA0015.jpg", "img/IMG-20240313-WA0016.jpg", "img/IMG-20240321-WA0012.jpg",
-                        "img/20240414-WA0023.jpg", "img/img_3_1728397795154.jpg"
+                        "20240220_193556.jpg", "20240501_121918.jpg", "20240801_162500.jpg", "20240804_210949.jpg",
+                        "20240804_210955.jpg", "20240817_113340.jpg", "20240817_223834.jpg", "20240818_175900.jpg",
+                        "20241018_130133.jpg", "20241117_143657.jpg", "20241127_220631.jpg",
+                        "2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
+                        "20250112_194140.jpg", "20250120_230316.jpg", "IMG-20240223-WA0004.jpg",
+                        "IMG-20240228-WA0009.jpg", "IMG-20240228-WA0010.jpg", "IMG-20240313-WA0014.jpg",
+                        "IMG-20240313-WA0015.jpg", "IMG-20240313-WA0016.jpg", "IMG-20240321-WA0012.jpg",
+                        "20240414-WA0023.jpg", "img_3_1728397795154.jpg"
                     ];
 
                     const slideshow = document.querySelector('.slideshow');
 
+                    // Load images dynamically and check for successful loading
                     images.forEach(src => {
                         const img = new Image();
                         img.src = src;
                         img.onload = () => {
+                            console.log(`Image loaded: ${src}`);
                             const slideshowImg = document.createElement('img');
                             slideshowImg.src = src;
                             slideshow.appendChild(slideshowImg);
-                        }
+
+                            // Add active class to first image
+                            if (slideshow.children.length === 1) slideshowImg.classList.add('active');
+                        };
+                        img.onerror = () => {
+                            console.error(`Failed to load image: ${src}`);
+                        };
                     });
 
                     let currentIndex = 0;
@@ -139,7 +150,11 @@
                     }, 5000);
 
                     const music = document.getElementById('backgroundMusic');
-                    music.play();
+                    music.play().then(() => {
+                        console.log("Music is playing!");
+                    }).catch(error => {
+                        console.error("Error playing music: ", error);
+                    });
                 };
             } else {
                 console.error("Fireworks script not found!");
