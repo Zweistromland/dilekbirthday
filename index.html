@@ -19,19 +19,14 @@
             width: 100%;
             height: 100%;
             z-index: -1;
+            display: flex;
+            transition: transform 1s ease-in-out;
         }
 
         .slideshow img {
-            width: 100%;
+            width: 33.33%;  /* Adjusted to show three images side by side */
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .slideshow img.active {
-            opacity: 1;
         }
 
         .fireworks {
@@ -59,7 +54,7 @@
         }
     </style>
     <!-- Correct Fireworks Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@fireworks-js/react@2.1.2/dist/fireworks-js.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.0/dist/fireworks.min.js"></script>
 </head>
 <body>
     <div class="slideshow"></div>
@@ -106,21 +101,19 @@
         // Get the slideshow container
         const slideshow = document.querySelector('.slideshow');
 
-        // Dynamically create image elements
-        images.forEach((src, index) => {
+        // Dynamically create image elements (only the first 3 for display)
+        images.slice(0, 3).forEach((src) => {
             const img = document.createElement('img');
             img.src = src;
-            if (index === 0) img.classList.add('active'); // First image active
             slideshow.appendChild(img);
         });
 
-        // Slideshow functionality
+        // Slideshow functionality (move images horizontally)
         let currentIndex = 0;
         setInterval(() => {
             const imgs = document.querySelectorAll('.slideshow img');
-            imgs[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % imgs.length; // Loop back to the first image
-            imgs[currentIndex].classList.add('active');
+            slideshow.style.transform = `translateX(-${(currentIndex * 33.33)}%)`; // Move the slideshow horizontally
         }, 5000); // Change image every 5 seconds
 
         // Fireworks effect
