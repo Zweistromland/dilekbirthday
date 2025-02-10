@@ -1,8 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body { /* ... your original CSS styles ... */ }
+        .slideshow { /* ... your original CSS styles ... */ }
+        .slideshow img { /* ... your original CSS styles ... */ }
+        .slideshow img.active { /* ... your original CSS styles ... */ }
+        .fireworks { /* ... your original CSS styles ... */ }
+        .message { /* ... your original CSS styles ... */ }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.2/dist/index.global.min.js"></script>
+</head>
 <body>
+    <div class="slideshow"></div>
+    <canvas class="fireworks"></canvas>
+    <div class="message">
+        <div class="message-container">
+            Happy Birthday<br>I love you so much!
+        </div>
+    </div>
+
     <audio id="backgroundMusic" loop>
         <source src="Taylor Swift - Lover (Official Music Video).mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -12,13 +33,24 @@
         document.addEventListener('DOMContentLoaded', () => {
             const fireworksScript = document.querySelector('script[src*="fireworks-js"]');
             if (fireworksScript) {
-                fireworksScript.onload = () => {  // CRUCIAL: Everything inside onload!
+                fireworksScript.onload = () => {
                     const container = document.querySelector('.fireworks');
-                    const fireworks = new Fireworks(container, { /* ... fireworks options ... */ });
+                    const fireworks = new Fireworks(container, {
+                        speed: 3,
+                        acceleration: 1.05,
+                        friction: 0.97,
+                        gravity: 1.5,
+                        particles: 100,
+                        explosion: 6,
+                    });
                     fireworks.start();
 
-                    const images = [ /* ... your image paths ... */ ];
+                    const images = [
+                        // ... your image paths ...
+                    ];
+
                     const slideshow = document.querySelector('.slideshow');
+
                     images.forEach(src => {
                         const img = new Image();
                         img.src = src;
@@ -32,7 +64,7 @@
 
                     let currentIndex = 0;
                     setInterval(() => {
-                        const imgs = document.querySelectorAll('.slideshow img');
+                         const imgs = document.querySelectorAll('.slideshow img');
                         if (imgs.length > 0) {
                             imgs[currentIndex].classList.remove('active');
                             currentIndex = (currentIndex + 1) % imgs.length;
@@ -40,10 +72,9 @@
                         }
                     }, 5000);
 
-                     // Background music (moved inside onload)
                     const music = document.getElementById('backgroundMusic');
                     music.play();
-                }; // End of fireworksScript.onload
+                };
             } else {
                 console.error("Fireworks script not found!");
             }
