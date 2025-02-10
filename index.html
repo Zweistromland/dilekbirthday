@@ -9,8 +9,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            background-color: #fce1f0;
+            font-family: Arial, sans-serif;
         }
 
         .slideshow {
@@ -20,14 +19,13 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            display: flex;
-            transition: transform 1s ease-in-out;
         }
 
         .slideshow img {
-            width: 33.33%; /* Adjust this for the number of images you want visible */
+            width: 100%;
             height: 100%;
             object-fit: cover;
+            position: absolute;
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
@@ -50,121 +48,94 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #fff;
+            color: white;
             font-size: 3em;
             text-align: center;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Lobster Two', cursive;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
         }
 
-        .message-container {
-            background-color: rgba(255, 192, 203, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .message {
-                font-size: 2em;
-            }
+        audio {
+            display: none;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.2/dist/index.global.min.js"></script>
+    <!-- Correct Fireworks Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@fireworks-js/react@2.1.2/dist/fireworks-js.umd.min.js"></script>
 </head>
 <body>
     <div class="slideshow"></div>
+
     <canvas class="fireworks"></canvas>
+
     <div class="message">
-        <div class="message-container">
-            Happy Birthday<br>I love you so much!
-        </div>
+        Happy Birthday<br>I love you so much!
     </div>
 
-    <audio id="backgroundMusic" loop>
+    <audio id="background-music" autoplay loop>
         <source src="Taylor Swift - Lover (Official Music Video).mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log("DOM content loaded");
+        // Add your image URLs here
+        const images = [
+            "20240220_193556.jpg",
+            "20240501_121918.jpg",
+            "20240801_162500.jpg",
+            "20240804_210949.jpg",
+            "20240804_210955.jpg",
+            "20240817_113340.jpg",
+            "20240817_223834.jpg",
+            "20240818_175900.jpg",
+            "20241018_130133.jpg",
+            "20241117_143657.jpg",
+            "20241127_220631.jpg",
+            "2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
+            "20250112_194140.jpg",
+            "20250120_230316.jpg",
+            "IMG-20240223-WA0004.jpg",
+            "IMG-20240228-WA0009.jpg",
+            "IMG-20240228-WA0010.jpg",
+            "IMG-20240313-WA0014.jpg",
+            "IMG-20240313-WA0015.jpg",
+            "IMG-20240313-WA0016.jpg",
+            "IMG-20240321-WA0012.jpg",
+            "IMG-20240414-WA0023.jpg",
+            "img_3_1728397795154.jpg"
+        ];
 
-            // Fireworks initialization
-            const fireworksScript = document.querySelector('script[src*="fireworks-js"]');
-            if (fireworksScript) {
-                console.log("Fireworks script loaded!");
+        // Get the slideshow container
+        const slideshow = document.querySelector('.slideshow');
 
-                fireworksScript.onload = () => {
-                    const container = document.querySelector('.fireworks');
-                    const fireworks = new Fireworks(container, {
-                        speed: 3,
-                        acceleration: 1.05,
-                        friction: 0.97,
-                        gravity: 1.5,
-                        particles: 100,
-                        explosion: 6,
-                    });
-                    fireworks.start();
-                    console.log("Fireworks started!");
-
-                    // Image paths (simplified for files in the same folder)
-                    const images = [
-                        "20240220_193556.jpg", "20240501_121918.jpg", "20240801_162500.jpg", "20240804_210949.jpg",
-                        "20240804_210955.jpg", "20240817_113340.jpg", "20240817_223834.jpg", "20240818_175900.jpg",
-                        "20241018_130133.jpg", "20241117_143657.jpg", "20241127_220631.jpg",
-                        "2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
-                        "20250112_194140.jpg", "20250120_230316.jpg", "IMG-20240223-WA0004.jpg",
-                        "IMG-20240228-WA0009.jpg", "IMG-20240228-WA0010.jpg", "IMG-20240313-WA0014.jpg",
-                        "IMG-20240313-WA0015.jpg", "IMG-20240313-WA0016.jpg", "IMG-20240321-WA0012.jpg",
-                        "20240414-WA0023.jpg", "img_3_1728397795154.jpg"
-                    ];
-
-                    const slideshow = document.querySelector('.slideshow');
-
-                    // Load images dynamically and check for successful loading
-                    images.forEach(src => {
-                        const img = new Image();
-                        img.src = src;
-                        img.onload = () => {
-                            console.log(`Image loaded: ${src}`);  // Log when an image is successfully loaded
-                            const slideshowImg = document.createElement('img');
-                            slideshowImg.src = src;
-                            slideshow.appendChild(slideshowImg);
-
-                            // Add active class to first image
-                            if (slideshow.children.length === 1) slideshowImg.classList.add('active');
-                        };
-                        img.onerror = () => {
-                            console.error(`Failed to load image: ${src}`);  // Log any failed image load
-                        };
-                    });
-
-                    let currentIndex = 0;
-                    setInterval(() => {
-                        const imgs = document.querySelectorAll('.slideshow img');
-                        if (imgs.length > 0) {
-                            imgs[currentIndex].classList.remove('active');
-                            currentIndex = (currentIndex + 1) % imgs.length;
-                            imgs[currentIndex].classList.add('active');
-                            // Adjust the position to slide images
-                            slideshow.style.transform = `translateX(-${(currentIndex * 33.33)}%)`; // Adjust this to control how images move
-                        }
-                    }, 5000);
-
-                    // Audio
-                    const music = document.getElementById('backgroundMusic');
-                    music.play().then(() => {
-                        console.log("Music is playing!");
-                    }).catch(error => {
-                        console.error("Error playing music: ", error);
-                    });
-                };
-            } else {
-                console.error("Fireworks script not found!");
-            }
+        // Dynamically create image elements
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            if (index === 0) img.classList.add('active'); // First image active
+            slideshow.appendChild(img);
         });
+
+        // Slideshow functionality
+        let currentIndex = 0;
+        setInterval(() => {
+            const imgs = document.querySelectorAll('.slideshow img');
+            imgs[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % imgs.length; // Loop back to the first image
+            imgs[currentIndex].classList.add('active');
+        }, 5000); // Change image every 5 seconds
+
+        // Fireworks effect
+        const container = document.querySelector('.fireworks');
+        const fireworks = new Fireworks(container, {
+            autoresize: true,
+            opacity: 0.5,
+            speed: 3,
+            acceleration: 1.05,
+            friction: 0.97,
+            gravity: 1.5,
+            particles: 100,
+            explosion: 6,
+        });
+        fireworks.start();
     </script>
 </body>
 </html>
