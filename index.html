@@ -13,37 +13,6 @@
             background-color: #fce1f0;
         }
 
-        .polaroid-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
-
-        .polaroid {
-            background-color: white;
-            border: 10px solid white;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-            margin: 20px;
-            transform: rotate(-5deg);
-            transition: transform 0.3s ease;
-        }
-
-        .polaroid:hover {
-            transform: rotate(-7deg) scale(1.05);
-        }
-
-        .polaroid img {
-            width: 200px;
-            height: auto;
-            display: block;
-        }
-
         .slideshow {
             position: fixed;
             top: 0;
@@ -106,7 +75,6 @@
 <body>
     <div class="slideshow"></div>
     <canvas class="fireworks"></canvas>
-    <div class="polaroid-container"></div>  </div>
     <div class="message">
         <div class="message-container">
             Happy Birthday<br>I love you so much!
@@ -135,14 +103,14 @@
                     fireworks.start();
 
                     const images = [
-                        "20240220_193556.jpg", "20240501_121918.jpg", "20240801_162500.jpg", "20240804_210949.jpg",
-                        "20240804_210955.jpg", "20240817_113340.jpg", "20240817_223834.jpg", "20240818_175900.jpg",
-                        "20241018_130133.jpg", "20241117_143657.jpg", "20241127_220631.jpg",
-                        "2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
-                        "20250112_194140.jpg", "20250120_230316.jpg", "IMG-20240223-WA0004.jpg",
-                        "IMG-20240228-WA0009.jpg", "IMG-20240228-WA0010.jpg", "IMG-20240313-WA0014.jpg",
-                        "IMG-20240313-WA0015.jpg", "IMG-20240313-WA0016.jpg", "IMG-20240321-WA0012.jpg",
-                        "IMG-20240414-WA0023.jpg", "img_3_1728397795154.jpg"
+                        "img/20240220_193556.jpg", "img/20240501_121918.jpg", "img/20240801_162500.jpg", "img/20240804_210949.jpg",
+                        "img/20240804_210955.jpg", "img/20240817_113340.jpg", "img/20240817_223834.jpg", "img/20240818_175900.jpg",
+                        "img/20241018_130133.jpg", "img/20241117_143657.jpg", "img/20241127_220631.jpg",
+                        "img/2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
+                        "img/20250112_194140.jpg", "img/20250120_230316.jpg", "img/IMG-20240223-WA0004.jpg",
+                        "img/IMG-20240228-WA0009.jpg", "img/IMG-20240228-WA0010.jpg", "img/IMG-20240313-WA0014.jpg",
+                        "img/IMG-20240313-WA0015.jpg", "img/IMG-20240313-WA0016.jpg", "img/IMG-20240321-WA0012.jpg",
+                        "img/20240414-WA0023.jpg", "img/img_3_1728397795154.jpg"
                     ];
 
                     const slideshow = document.querySelector('.slideshow');
@@ -170,22 +138,6 @@
 
                     const music = document.getElementById('backgroundMusic');
                     music.play();
-
-                    // Polaroid creation (inside onload)
-                    const polaroidContainer = document.querySelector('.polaroid-container');
-                    const numPolaroids = Math.min(3, images.length);
-
-                    for (let i = 0; i < numPolaroids; i++) {
-                        const polaroid = document.createElement('div');
-                        polaroid.classList.add('polaroid');
-
-                        const img = document.createElement('img');
-                        img.src = images[i];
-                        img.alt = `Polaroid ${i + 1}`;
-                        polaroid.appendChild(img);
-
-                        polaroidContainer.appendChild(polaroid);
-                    }
                 };
             } else {
                 console.error("Fireworks script not found!");
