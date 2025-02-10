@@ -89,7 +89,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if the fireworks script loaded properly
+            console.log("DOM content loaded");
+
+            // Fireworks initialization
             const fireworksScript = document.querySelector('script[src*="fireworks-js"]');
             if (fireworksScript) {
                 console.log("Fireworks script loaded!");
@@ -105,7 +107,9 @@
                         explosion: 6,
                     });
                     fireworks.start();
+                    console.log("Fireworks started!");
 
+                    // Image paths
                     const images = [
                         "20240220_193556.jpg", "20240501_121918.jpg", "20240801_162500.jpg", "20240804_210949.jpg",
                         "20240804_210955.jpg", "20240817_113340.jpg", "20240817_223834.jpg", "20240818_175900.jpg",
@@ -149,6 +153,7 @@
                         }
                     }, 5000);
 
+                    // Audio
                     const music = document.getElementById('backgroundMusic');
                     music.play().then(() => {
                         console.log("Music is playing!");
