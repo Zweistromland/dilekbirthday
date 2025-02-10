@@ -5,12 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
     <style>
-        body { /* ... your original CSS styles ... */ }
-        .slideshow { /* ... your original CSS styles ... */ }
-        .slideshow img { /* ... your original CSS styles ... */ }
-        .slideshow img.active { /* ... your original CSS styles ... */ }
-        .fireworks { /* ... your original CSS styles ... */ }
-        .message { /* ... your original CSS styles ... */ }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #fce1f0; /* Soft pink background */
+        }
+
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Lobster Two', cursive; /* More girly font */
+        }
+
+        .message-container {
+            background-color: rgba(255, 192, 203, 0.5); /* Semi-transparent pink background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 2em; /* Smaller font on mobile */
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.2/dist/index.global.min.js"></script>
@@ -46,7 +104,29 @@
                     fireworks.start();
 
                     const images = [
-                        // ... your image paths ...
+                        "20240220_193556.jpg",
+                        "20240501_121918.jpg",
+                        "20240801_162500.jpg",
+                        "20240804_210949.jpg",
+                        "20240804_210955.jpg",
+                        "20240817_113340.jpg",
+                        "20240817_223834.jpg",
+                        "20240818_175900.jpg",
+                        "20241018_130133.jpg",
+                        "20241117_143657.jpg",
+                        "20241127_220631.jpg",
+                        "2025-01-12-1584953930_ghqUbTxw_ac073e50e53dcc4c7f4d1261bef1106d3555e1f8 (1).jpg",
+                        "20250112_194140.jpg",
+                        "20250120_230316.jpg",
+                        "IMG-20240223-WA0004.jpg",
+                        "IMG-20240228-WA0009.jpg",
+                        "IMG-20240228-WA0010.jpg",
+                        "IMG-20240313-WA0014.jpg",
+                        "IMG-20240313-WA0015.jpg",
+                        "IMG-20240313-WA0016.jpg",
+                        "IMG-20240321-WA0012.jpg",
+                        "IMG-20240414-WA0023.jpg",
+                        "img_3_1728397795154.jpg"
                     ];
 
                     const slideshow = document.querySelector('.slideshow');
@@ -64,7 +144,7 @@
 
                     let currentIndex = 0;
                     setInterval(() => {
-                         const imgs = document.querySelectorAll('.slideshow img');
+                        const imgs = document.querySelectorAll('.slideshow img');
                         if (imgs.length > 0) {
                             imgs[currentIndex].classList.remove('active');
                             currentIndex = (currentIndex + 1) % imgs.length;
