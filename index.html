@@ -109,7 +109,7 @@
                     fireworks.start();
                     console.log("Fireworks started!");
 
-                    // Image paths
+                    // Image paths (simplified for files in the same folder)
                     const images = [
                         "20240220_193556.jpg", "20240501_121918.jpg", "20240801_162500.jpg", "20240804_210949.jpg",
                         "20240804_210955.jpg", "20240817_113340.jpg", "20240817_223834.jpg", "20240818_175900.jpg",
@@ -128,7 +128,7 @@
                         const img = new Image();
                         img.src = src;
                         img.onload = () => {
-                            console.log(`Image loaded: ${src}`);
+                            console.log(`Image loaded: ${src}`);  // Log when an image is successfully loaded
                             const slideshowImg = document.createElement('img');
                             slideshowImg.src = src;
                             slideshow.appendChild(slideshowImg);
@@ -137,7 +137,7 @@
                             if (slideshow.children.length === 1) slideshowImg.classList.add('active');
                         };
                         img.onerror = () => {
-                            console.error(`Failed to load image: ${src}`);
+                            console.error(`Failed to load image: ${src}`);  // Log any failed image load
                         };
                     });
 
