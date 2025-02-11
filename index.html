@@ -100,11 +100,20 @@
         const imagesCount = images.length; // Get the length of the images array
         setInterval(() => {
             const imgs = document.querySelectorAll('.slideshow img');
-            currentIndex = (currentIndex + 1) % imagesCount; // Loop back to the first image after the last one
+
+            // When the last image is reached, reset the slideshow
+            if (currentIndex >= imagesCount) {
+                currentIndex = 0; // Reset to the first image
+                slideshow.style.transition = 'none'; // Disable transition for reset
+                slideshow.style.transform = `translateX(-${(currentIndex * 100)}%)`;
+                setTimeout(() => {
+                    slideshow.style.transition = 'transform 1s ease-in-out'; // Re-enable transition for smooth movement
+                }, 100); // Small delay before re-enabling the transition
+            } else {
+                currentIndex++; // Move to the next image
+            }
             slideshow.style.transform = `translateX(-${(currentIndex * 100)}%)`; // Move the slideshow horizontally
         }, 5000); // Change image every 5 seconds
-
-
     </script>
 </body>
 </html>
