@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>İyi Ki Doğdun Dilek!</title>
     <style>
         body {
             margin: 0;
@@ -34,7 +34,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
+            color: pink;
             font-size: 3em;
             text-align: center;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
@@ -49,7 +49,7 @@
     <div class="slideshow"></div>
 
     <div class="message">
-        Happy Birthday<br>I love you so much!
+        Seni çok seviyoruz aşkım,<br>İyi ki doğdun!!!
     </div>
 
     <audio id="background-music" autoplay loop>
@@ -97,11 +97,13 @@
 
         // Slideshow functionality (move images horizontally)
         let currentIndex = 0;
+        const imagesCount = images.length; // Get the length of the images array
         setInterval(() => {
             const imgs = document.querySelectorAll('.slideshow img');
-            currentIndex = (currentIndex + 1) % imgs.length; // Loop back to the first image
+            currentIndex = (currentIndex + 1) % imagesCount; // Loop back to the first image after the last one
             slideshow.style.transform = `translateX(-${(currentIndex * 100)}%)`; // Move the slideshow horizontally
         }, 5000); // Change image every 5 seconds
+
 
     </script>
 </body>
